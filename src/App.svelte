@@ -30,6 +30,7 @@
 		videoElement.height = dimensions.height
 		let cam = await tf.data.webcam(videoElement)
 		setInterval(async () => {
+			tf.engine().startScope()
 			const img = await cam.capture()
 			const [width, height, _rgbLen] = img.shape
 			dimensions = { width, height }
@@ -53,7 +54,10 @@
 			]
 			document.documentElement.style.setProperty("--max-y", `${logLoc[0]}px`)
 			document.documentElement.style.setProperty("--max-x", `${logLoc[1]}px`)
-			tf.dispose()
+			lightness.dispose()
+			img.dispose()
+			tf.disposeVariables()
+			tf.engine().endScope()
 		}, 50)
 	})
 </script>
