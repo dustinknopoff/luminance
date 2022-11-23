@@ -1,9 +1,28 @@
 <script lang="ts">
-	export let loc = [0, 0]
+	export let loc = [1, 1]
+	let value = ""
+	let list = []
 </script>
 
 <div class="container">
-	<input type="text" placeholder="I have to" />
+	<div class="vertical">
+		<div>
+			<input type="text" placeholder="I have to" bind:value />
+			<button
+				on:click={() => {
+					list = [...list, value]
+					value = ""
+				}}>+</button
+			>
+		</div>
+		<ul>
+			{#each list as todo}
+				<li>
+					<span>{todo}</span>
+				</li>
+			{/each}
+		</ul>
+	</div>
 </div>
 
 <div class="controls">
@@ -43,6 +62,11 @@
 		align-items: center;
 	}
 
+	.vertical {
+		display: flex;
+		flex-direction: column;
+	}
+
 	input {
 		width: 30vw;
 		font-size: 48px;
@@ -56,6 +80,30 @@
 				hsl(var(--shadow-color) / 0.333),
 			calc(var(--max-x) * 0.66) calc(var(--max-y) * 0.66) calc(var(--max-y) * 0.66) hsl(var(--shadow-color) / 0.333),
 			var(--max-x) var(--max-y) var(--max-y) hsl(var(--shadow-color) / 0.333);
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		height: 33vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	li {
+		width: 25vw;
+		margin: 25px;
+		padding: 10px;
+		font-size: 36px;
+		border-radius: 6px;
+		box-shadow: calc(var(--max-x) * 0.33) calc(var(--max-y) * 0.33) calc(var(--max-y) * 0.33)
+				hsl(var(--shadow-color) / 0.333),
+			calc(var(--max-x) * 0.66) calc(var(--max-y) * 0.66) calc(var(--max-y) * 0.66) hsl(var(--shadow-color) / 0.333),
+			var(--max-x) var(--max-y) var(--max-y) hsl(var(--shadow-color) / 0.333);
+		overflow-y: scroll;
 	}
 
 	input::after {

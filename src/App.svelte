@@ -6,7 +6,10 @@
 	import Todo from "./lib/Todo.svelte"
 
 	let luminance = 0.6
-	let loc = [0, 0]
+	let actualLuminance = 0.6
+	let loc = [1, 1]
+	let logLoc = [1, 1]
+	let actualLoc = [0, 0]
 	let dimensions = {
 		width: 1024,
 		height: 728,
@@ -17,6 +20,9 @@
 	const select = (val: string) => {
 		selected = val
 	}
+
+	// Clamp number between two values with the following line:
+	const clamp = (num, min, max) => Math.min(Math.max(num, min), max)
 
 	onMount(async () => {
 		const videoElement = document.createElement("video")
@@ -34,12 +40,19 @@
 					return lightness
 				}),
 			)
-			luminance = (lightness.sum().arraySync() as number) / (lightness.arraySync() as Array<number>).length / 100
+			actualLuminance = (lightness.sum().arraySync() as number) / (lightness.arraySync() as Array<number>).length / 100
+			luminance = clamp(luminance - 0.1, actualLuminance, luminance + 0.1)
 			document.documentElement.style.setProperty("--luminance", `${Math.trunc(luminance * 100)}%`)
 			const maxInd = lightness.argMax(0).arraySync() as number
-			loc = [Math.floor(maxInd / height), maxInd % height]
-			document.documentElement.style.setProperty("--max-y", `${(loc[0] / height) * 10}px`)
-			document.documentElement.style.setProperty("--max-x", `${(loc[1] / width) * 10}px`)
+			actualLoc = [Math.floor(maxInd / height), maxInd % height]
+			loc = actualLoc
+			logLoc = [(loc[0] / height) * 10, (loc[1] / width) * 10]
+			logLoc = [
+				Math.trunc(clamp(logLoc[0] - 1, (loc[0] / height) * 10, logLoc[0] + 1)),
+				Math.trunc(clamp(logLoc[1] - 1, (loc[1] / width) * 10, logLoc[1] + 1)),
+			]
+			document.documentElement.style.setProperty("--max-y", `${logLoc[0]}px`)
+			document.documentElement.style.setProperty("--max-x", `${logLoc[1]}px`)
 			tf.dispose()
 		}, 50)
 	})
