@@ -5,6 +5,7 @@
 	import Cubed from "./lib/Cubed.svelte"
 	import Todo from "./lib/Todo.svelte"
 
+	// Calcs
 	let luminance = 0.6
 	let actualLuminance = 0.6
 	let loc = [1, 1]
@@ -15,6 +16,7 @@
 		height: 728,
 	}
 
+	// UI state
 	let selected
 
 	const select = (val: string) => {
@@ -29,7 +31,7 @@
 		videoElement.width = dimensions.width
 		videoElement.height = dimensions.height
 		let cam = await tf.data.webcam(videoElement)
-		setInterval(async () => {
+		async function detectLightness() {
 			tf.engine().startScope()
 			const img = await cam.capture()
 			const [width, height, _rgbLen] = img.shape
@@ -49,8 +51,8 @@
 			loc = actualLoc
 			logLoc = [(loc[0] / height) * 10, (loc[1] / width) * 10]
 			logLoc = [
-				Math.trunc(clamp(logLoc[0] - 1, (loc[0] / height) * 10, logLoc[0] + 1)),
-				Math.trunc(clamp(logLoc[1] - 1, (loc[1] / width) * 10, logLoc[1] + 1)),
+				Math.trunc(clamp(logLoc[0] - 5, (loc[0] / height) * 10, logLoc[0] + 5)),
+				Math.trunc(clamp(logLoc[1] - 5, (loc[1] / width) * 10, logLoc[1] + 5)),
 			]
 			document.documentElement.style.setProperty("--max-y", `${logLoc[0]}px`)
 			document.documentElement.style.setProperty("--max-x", `${logLoc[1]}px`)
@@ -58,7 +60,9 @@
 			img.dispose()
 			tf.disposeVariables()
 			tf.engine().endScope()
-		}, 50)
+			window.requestAnimationFrame(detectLightness)
+		}
+		detectLightness()
 	})
 </script>
 
@@ -74,3 +78,10 @@
 		<Todo {loc} />
 	{/if}
 </main>
+
+<style>
+	nav {
+		display: flex;
+		justify-content: center;
+	}
+</style>
