@@ -91,6 +91,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		overflow-y: scroll;
 	}
 
 	li {
@@ -103,7 +104,6 @@
 				hsl(var(--shadow-color) / 0.333),
 			calc(var(--max-x) * 0.66) calc(var(--max-y) * 0.66) calc(var(--max-y) * 0.66) hsl(var(--shadow-color) / 0.333),
 			var(--max-x) var(--max-y) var(--max-y) hsl(var(--shadow-color) / 0.333);
-		overflow-y: scroll;
 	}
 
 	input::after {
