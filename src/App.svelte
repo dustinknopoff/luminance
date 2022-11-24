@@ -36,6 +36,12 @@
 		detectLightness()
 	}
 
+	const disableWebcam = async () => {
+		if (cam) {
+			cam.stop()
+		}
+	}
+
 	// Clamp number between two values with the following line:
 	const clamp = (num, min, max) => Math.min(Math.max(num, min), max)
 
@@ -78,6 +84,8 @@
 	<button on:click={() => select("todo")}>Todo</button>
 	{#if !cam}
 		<button on:click={startWebcam}>Enable Webcam</button>
+	{:else}
+		<button on:click={disableWebcam}>Disable Webcam</button>
 	{/if}
 </nav>
 
