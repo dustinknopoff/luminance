@@ -27,7 +27,7 @@
 	}
 
 	onDestroy(() => {
-		cam.stop()
+		if (cam) cam.stop()
 		tf.disposeVariables()
 	})
 
@@ -64,7 +64,6 @@
 		actualLoc = [Math.floor(maxInd / height), maxInd % height]
 		loc = actualLoc
 		logLoc = [(loc[0] / height) * 10, (loc[1] / width) * 10]
-		console.log(logLoc)
 		logLoc = [
 			Math.trunc(clamp(logLoc[0] - 1, (loc[0] / height) * 10, logLoc[0] + 1)),
 			Math.trunc(clamp(logLoc[1] - 1, (loc[1] / width) * 10, logLoc[1] + 1)),

@@ -66,11 +66,14 @@
 	.vertical {
 		display: flex;
 		flex-direction: column;
+		flex-basis: 90vw;
+		align-items: center;
 	}
 
 	input {
 		width: 30vw;
-		font-size: 48px;
+		min-width: 150px;
+		font-size: calc(1rem + 2vw);
 		background: none;
 		border: none;
 		border-bottom: 4px solid var(--bg-color);
@@ -94,7 +97,7 @@
 	}
 
 	button {
-		font-size: 30px;
+		font-size: calc(1rem + 2vw);
 		border-radius: 6px;
 		box-shadow: calc(var(--max-x) * 0.33) calc(var(--max-y) * 0.33) calc(var(--max-y) * 0.33)
 				hsla(var(--shadow-color) / 0.333),
@@ -118,7 +121,7 @@
 		width: 25vw;
 		margin: 25px;
 		padding: 10px;
-		font-size: 36px;
+		font-size: calc(1rem + 2vw);
 		border-radius: 6px;
 		color: var(--bg-color);
 		box-shadow: calc(var(--max-x) * 0.33) calc(var(--max-y) * 0.33) calc(var(--max-y) * 0.33)
