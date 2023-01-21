@@ -35,8 +35,8 @@
 		--luminance: 60%;
 		--max-y: 6px;
 		--max-x: 3px;
-		--shadow-color: 12deg 60% var(--luminance);
-		--bg-color: white;
+		--shadow-color: 0deg 12% var(--luminance);
+		--bg-color: var(--shadow-color);
 	}
 
 	:global(#app) {
@@ -52,12 +52,6 @@
 	.container {
 		width: 100vw;
 		height: 95vh;
-		background: linear-gradient(
-			249.49deg,
-			#01942a 0.51%,
-			rgba(67, 129, 219, 0.520833) 52.92%,
-			rgba(187, 47, 190, 0) 106.43%
-		);
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -124,6 +118,7 @@
 		font-size: calc(1rem + 2vw);
 		border-radius: 6px;
 		color: var(--bg-color);
+		transition: all 1s ease-in-out;
 		box-shadow: calc(var(--max-x) * 0.33) calc(var(--max-y) * 0.33) calc(var(--max-y) * 0.33)
 				hsla(var(--shadow-color) / 0.333),
 			calc(var(--max-x) * 0.66) calc(var(--max-y) * 0.66) calc(var(--max-y) * 0.66) hsla(var(--shadow-color) / 0.333),
