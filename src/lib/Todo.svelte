@@ -74,10 +74,10 @@
 		color: var(--bg-color);
 		padding: 10px;
 		border-radius: 6px;
-		box-shadow: calc(var(--max-x) * 0.33) calc(var(--max-y) * 0.33) calc(var(--max-y) * 0.33)
+		box-shadow: var(--max-x) var(--max-y) 2px hsla(var(--shadow-color) / 0.333),
+			calc(var(--max-x) + 0.6px) calc(var(--max-y) + 0.6px) calc(var(--max-y) + 0.6px) 4px
 				hsla(var(--shadow-color) / 0.333),
-			calc(var(--max-x) * 0.66) calc(var(--max-y) * 0.66) calc(var(--max-y) * 0.66) hsla(var(--shadow-color) / 0.333),
-			var(--max-x) var(--max-y) var(--max-y) hsla(var(--shadow-color) / 0.333);
+			calc(var(--max-x)+4px) calc(var(--max-y) + 4px) calc(var(--max-y) + 0.6px) 6px hsla(var(--shadow-color) / 0.333);
 		/* filter: 
 			 drop-shadow(
 			var(--max-x) var(--max-y) calc(var(--max-y) * 0.25) hsl(var(--shadow-color) / 0.333)
@@ -136,11 +136,5 @@
 
 	:global(body) {
 		margin: 0;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		:global(:root) {
-			--bg-color: black;
-		}
 	}
 </style>
